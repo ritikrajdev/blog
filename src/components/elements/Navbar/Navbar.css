@@ -9,14 +9,14 @@ nav {
   align-items: center;
 }
 
-ul {
+nav ul {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 2rem;
 }
 
-a {
+nav a {
   text-decoration: none;
   color: white;
 }
