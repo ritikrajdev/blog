@@ -53,7 +53,6 @@ export default function Card({
           <IconButton
             iconPath={heartSrc}
             onClick={(e: React.MouseEvent) => {
-              console.log(e);
               setIsLiked(!isLiked);
             }}
           />

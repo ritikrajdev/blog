@@ -12,6 +12,7 @@ export default function IconButton({
   return (
     <img
       src={iconPath}
+      alt={iconPath}
       className='card-actions-icon'
       width={size}
       height={size}
