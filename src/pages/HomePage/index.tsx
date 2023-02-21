@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../../components/elements/Card';
+import { GET_ALL_BLOGS } from '../../constants/apiEndpoints/blog';
 
-import posts from '../../constants/mockData.json';
+import { makeRequest } from '../../utils/makeRequest';
+
+import { Post } from '../../types/post';
 
 import './HomePage.css';
 
 export default function HomePage() {
-  posts.forEach((post, idx) => {
-    if (!post.image.startsWith('/assets/images/')) {
-      posts[idx].image = '/assets/images/' + post.image;
-    }
-  });
+  const [posts, setPosts] = React.useState<Post[] | undefined>(undefined);
+
+  useEffect(() => {
+    makeRequest(GET_ALL_BLOGS).then((data) => {
+      setPosts(data);
+    });
+  }, []);
+
+  if (posts === undefined)
+    return <div className='body-padding home-page'>Loading...</div>;
 
   return (
     <div className='body-padding home-page'>

@@ -10,5 +10,8 @@
     "typescript",
     "typescriptreact"
   ],
-  "prettier.tabWidth": 2
+  "prettier.tabWidth": 2,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

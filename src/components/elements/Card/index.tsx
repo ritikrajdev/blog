@@ -1,32 +1,40 @@
-import React from 'react';
+import { AxiosResponse } from 'axios';
+import React, { useState } from 'react';
+import { PUT_BLOG } from '../../../constants/apiEndpoints/blog';
+import { makeRequest } from '../../../utils/makeRequest';
 import IconButton from '../IconButton';
 
 import './Card.css';
 
 export default function Card({
+  id,
   image,
   date,
-  readingTime,
+  reading_time: readingTime,
   title,
   claps,
   liked,
   description,
   imgAlt = '',
 }: {
+  id: string | number;
   image: string;
   date: string;
-  readingTime: string;
+  reading_time: string;
   imgAlt?: string;
   title: string;
   claps: number;
   liked: boolean;
   description: string;
 }) {
-  const [isLiked, setIsLiked] = React.useState(liked);
+  const [isLiked, setIsLiked] = useState(liked);
+  const [changeClap, setChangeClaps] = useState(false);
 
   const heartSrc = isLiked
     ? '/assets/icons/heart-red.svg'
     : '/assets/icons/heart-black.svg';
+
+  const numClaps = claps + (changeClap ? 1 : 0);
 
   return (
     <div className='card'>
@@ -45,15 +53,34 @@ export default function Card({
       <hr className='card-margin' />
       <div className='card-padding card-actions'>
         <div className='card-actions'>
-          <IconButton iconPath='/assets/icons/clapping.svg' />
-          <span>{claps}</span>
+          <IconButton
+            iconPath='/assets/icons/clapping.svg'
+            onClick={async () => {
+              const newChangeClap = !changeClap;
+              const newNumClaps = claps + (newChangeClap ? 1 : 0);
+
+              const responseData = await makeRequest(PUT_BLOG(id), {
+                data: {
+                  claps: newNumClaps,
+                },
+              });
+
+              setChangeClaps(newChangeClap);
+            }}
+          />
+          <span>{numClaps}</span>
         </div>
 
         <div className='card-actions'>
           <IconButton
             iconPath={heartSrc}
-            onClick={(e: React.MouseEvent) => {
-              setIsLiked(!isLiked);
+            onClick={async () => {
+              const response: AxiosResponse = await makeRequest(PUT_BLOG(id), {
+                data: {
+                  liked: !isLiked,
+                },
+              });
+              setIsLiked(response.data.liked);
             }}
           />
         </div>

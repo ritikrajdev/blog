@@ -40,6 +40,7 @@
 .card-title {
   max-height: 60px;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .card-content {
