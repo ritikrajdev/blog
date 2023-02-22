@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { ApiEndpoint } from '../types/apiEndpoint';
+import { ApiEndpoint } from '../../types/apiEndpoint';
 
 export async function makeRequest(
   apiEndpoint: ApiEndpoint,
@@ -9,5 +9,6 @@ export async function makeRequest(
     ...axiosRequestConfig,
     ...apiEndpoint,
   });
+
   return response.data;
 }
