@@ -17,7 +17,7 @@ exports[`Card should render correct data 1`] = `
         2 mins
       </span>
       <span>
-        2nd Januray, 2018
+        Invalid Date
       </span>
     </p>
     <h3

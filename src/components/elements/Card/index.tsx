@@ -35,13 +35,19 @@ export default function Card({
 
   const numClaps = claps + (changeClap ? 1 : 0);
 
+  const _date = new Date(date);
+  const formattedDate = _date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+  });
+
   return (
     <div className='card'>
       <img src={image} alt={imgAlt} className='card-img' />
 
       <p className='card-meta-info card-padding'>
         <span>{readingTime}</span>
-        <span>{date}</span>
+        <span>{formattedDate}</span>
       </p>
 
       <h3 className='card-title card-padding'>{title}</h3>
