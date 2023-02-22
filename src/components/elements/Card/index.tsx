@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import { PUT_BLOG } from '../../../constants/apiEndpoints/blog';
 import { makeRequest } from '../../../utils/makeRequest';
@@ -59,7 +58,7 @@ export default function Card({
               const newChangeClap = !changeClap;
               const newNumClaps = claps + (newChangeClap ? 1 : 0);
 
-              const responseData = await makeRequest(PUT_BLOG(id), {
+              makeRequest(PUT_BLOG(id), {
                 data: {
                   claps: newNumClaps,
                 },
@@ -75,7 +74,7 @@ export default function Card({
           <IconButton
             iconPath={heartSrc}
             onClick={async () => {
-              const response: AxiosResponse = await makeRequest(PUT_BLOG(id), {
+              const response = await makeRequest(PUT_BLOG(id), {
                 data: {
                   liked: !isLiked,
                 },

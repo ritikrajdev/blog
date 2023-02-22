@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should render correct data 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <img
+      alt=""
+      class="card-img"
+      src="abstract.png"
+    />
+    <p
+      class="card-meta-info card-padding"
+    >
+      <span>
+        2 mins
+      </span>
+      <span>
+        2nd Januray, 2018
+      </span>
+    </p>
+    <h3
+      class="card-title card-padding"
+    >
+      The future of abstract art and the culture ...
+    </h3>
+    <p
+      class="card-content card-padding"
+    >
+      Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your...
+    </p>
+    <div
+      class="vertical-spacer"
+    />
+    <hr
+      class="card-margin"
+    />
+    <div
+      class="card-padding card-actions"
+    >
+      <div
+        class="card-actions"
+      >
+        <img
+          alt="/assets/icons/clapping.svg"
+          class="card-actions-icon"
+          height="24"
+          src="/assets/icons/clapping.svg"
+          style="cursor: pointer;"
+          width="24"
+        />
+        <span>
+          10
+        </span>
+      </div>
+      <div
+        class="card-actions"
+      >
+        <img
+          alt="/assets/icons/heart-black.svg"
+          class="card-actions-icon"
+          height="24"
+          src="/assets/icons/heart-black.svg"
+          style="cursor: pointer;"
+          width="24"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

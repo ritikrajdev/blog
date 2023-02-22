@@ -21,7 +21,7 @@ export default function HomePage() {
     return <div className='body-padding home-page'>Loading...</div>;
 
   return (
-    <div className='body-padding home-page'>
+    <div className='body-padding home-page' data-testid='cards'>
       {posts.map((post, idx) => (
         <Card key={idx} {...post} />
       ))}
