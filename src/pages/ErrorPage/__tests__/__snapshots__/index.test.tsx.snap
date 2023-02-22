@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage should render correctly without param 1`] = `
+<DocumentFragment>
+  <div
+    style="text-align: center;"
+  >
+    <p>
+      Oh No ! Something went wrong
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorPage should render errorCode correctly with correct param 1`] = `
+<DocumentFragment>
+  <div
+    style="text-align: center;"
+  >
+    <p>
+      Oh No ! Something went wrong
+    </p>
+    <p
+      data-testid="error-code-container"
+    >
+      A Error Occoured with Error Code 123
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorPage should render errorCode correctly with incorrect param 1`] = `
+<DocumentFragment>
+  <div
+    style="text-align: center;"
+  >
+    <p>
+      Oh No ! Something went wrong
+    </p>
+  </div>
+</DocumentFragment>
+`;

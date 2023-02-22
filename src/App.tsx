@@ -1,22 +1,27 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+
 import Footer from './components/elements/Footer';
 import Navbar from './components/elements/Navbar';
-import HomePage from './pages/HomePage';
+import Routing from './Routing';
+
+import './App.css';
 
 function App() {
   return (
-    <div id='app'>
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <HomePage />
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+    <BrowserRouter>
+      <div id='app'>
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Routing />
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
