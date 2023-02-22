@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { makeRequest } from '..';
-import { GET_ALL_BLOGS } from '../../../constants/apiEndpoints/blog';
+import { GET_ALL_BLOGS, PUT_BLOG } from '../../../constants/apiEndpoints/blog';
 import { mockedBlogData } from '../../../constants/mockedData';
 
 jest.mock('axios');
@@ -15,5 +15,17 @@ describe('makeRequest', () => {
     expect(mockedAxios).toBeCalledTimes(1);
     expect(mockedAxios).toBeCalledWith(GET_ALL_BLOGS);
     expect(result).toEqual(mockedBlogData);
+  });
+
+  it('should make api call without response data & return correct reponse data', async () => {
+    const objClaps1 = { claps: 1 };
+
+    mockedAxios.mockResolvedValue({ data: { data: objClaps1 } });
+
+    expect(mockedAxios).not.toBeCalled();
+    const result = await makeRequest(PUT_BLOG(1), { data: objClaps1 });
+    expect(result).toEqual({ data: objClaps1 });
+    expect(mockedAxios).toBeCalledTimes(1);
+    expect(mockedAxios).toBeCalledWith({ ...PUT_BLOG(1), data: objClaps1 });
   });
 });
