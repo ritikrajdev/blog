@@ -24,3 +24,16 @@ export const mockedBlogData = [
     image: 'https://i.ibb.co/V38cHQ3/young-painters.png',
   },
 ];
+
+export const mockPost = {
+  id: 1,
+  date: '2nd Januray, 2018',
+  // eslint-disable-next-line camelcase
+  reading_time: '2 mins',
+  title: 'The future of abstract art and the culture ...',
+  description:
+    'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your...',
+  claps: 10,
+  liked: false,
+  image: 'abstract.png',
+};

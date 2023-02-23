@@ -1,24 +1,15 @@
 import React from 'react';
-import { describe, it } from '@jest/globals';
 
 import Card from '..';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-// import * as requests from '../../../../utils/makeRequest';
+
+import { makeRequest } from '../../../../utils/makeRequest';
+import { mockPost } from '../../../../constants/mockedData';
+
+jest.mock('../../../../utils/makeRequest');
+const mockMakeRequest = makeRequest as jest.MockedFunction<typeof makeRequest>;
 
 describe('Card', () => {
-  const mockPost = {
-    id: 1,
-    date: '2nd Januray, 2018',
-    // eslint-disable-next-line camelcase
-    reading_time: '2 mins',
-    title: 'The future of abstract art and the culture ...',
-    description:
-      'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your...',
-    claps: 10,
-    liked: false,
-    image: 'abstract.png',
-  };
-
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -33,39 +24,39 @@ describe('Card', () => {
     expect(screen.getByAltText('/assets/icons/heart-black.svg')).toBeTruthy();
   });
 
-  it('should change white heart to red on click', () => {
-    jest.mock('../../../../utils/makeRequest', () => ({
-      makeRequest: jest.fn().mockResolvedValue({
-        data: {
-          liked: true,
-        },
-      }),
-    }));
+  it('should change white heart to red on click', async () => {
+    mockMakeRequest.mockResolvedValue({
+      data: {
+        liked: true,
+      },
+    });
 
     const screen = render(<Card {...mockPost} />);
     const whiteHeart = screen.getByAltText('/assets/icons/heart-black.svg');
     fireEvent.click(whiteHeart);
-    waitFor(() => {
+    await waitFor(() => {
       const redHeart = screen.getByAltText('/assets/icons/heart-red.svg');
       expect(redHeart).toBeTruthy();
     });
   });
 
   it('should toggle heart on click', () => {
-    jest.mock('../../../../utils/makeRequest', () => ({
-      makeRequest: jest.fn().mockResolvedValue({
-        data: {
-          liked: true,
-        },
-      }),
-    }));
+    mockMakeRequest.mockResolvedValue({
+      data: {
+        liked: true,
+      },
+    });
 
     const screen = render(<Card {...mockPost} />);
     const whiteHeart = () =>
       screen.getByAltText('/assets/icons/heart-black.svg');
+    const redHeart = () => {
+      return screen.getByAltText('/assets/icons/heart-red.svg');
+    };
+
     fireEvent.click(whiteHeart());
+
     waitFor(() => {
-      const redHeart = () => screen.getByAltText('/assets/icons/heart-red.svg');
       expect(redHeart).toBeTruthy();
       fireEvent.click(redHeart());
       waitFor(() => {
@@ -74,10 +65,21 @@ describe('Card', () => {
     });
   });
 
+  it('should not toggle heart on click when any network error occours', () => {
+    mockMakeRequest.mockRejectedValue({});
+
+    const screen = render(<Card {...mockPost} />);
+    const whiteHeart = () =>
+      screen.getByAltText('/assets/icons/heart-black.svg');
+
+    fireEvent.click(whiteHeart());
+    waitFor(() => {
+      expect(whiteHeart).toBeTruthy();
+    });
+  });
+
   it('should toggle claps on clapButton click', () => {
-    jest.mock('../../../../utils/makeRequest', () => ({
-      makeRequest: jest.fn().mockResolvedValue({}),
-    }));
+    mockMakeRequest.mockResolvedValue({ data: { claps: mockPost.claps + 1 } });
 
     const screen = render(<Card {...mockPost} />);
     const numClapsNode = screen.getByText(mockPost.claps);
@@ -91,6 +93,20 @@ describe('Card', () => {
       waitFor(() => {
         expect(numClapsNode.textContent).toBe(String(mockPost.claps));
       });
+    });
+  });
+
+  it('should not toggle claps on clapButton click when any network error occours', () => {
+    mockMakeRequest.mockRejectedValue({});
+
+    const screen = render(<Card {...mockPost} />);
+    const numClapsNode = screen.getByText(mockPost.claps);
+    const clapsIconNode = screen.getByAltText('/assets/icons/clapping.svg');
+
+    expect(numClapsNode.textContent).toBe(String(mockPost.claps));
+    fireEvent.click(clapsIconNode);
+    waitFor(() => {
+      expect(numClapsNode.textContent).toBe(String(mockPost.claps));
     });
   });
 });
