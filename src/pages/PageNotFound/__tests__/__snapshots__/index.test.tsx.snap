@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageNotFound should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    style="text-align: center;"
+  >
+    <p>
+      Uh Oh !!
+    </p>
+    <p>
+      The thing you are looking for does not exist.
+    </p>
+  </div>
+</DocumentFragment>
+`;

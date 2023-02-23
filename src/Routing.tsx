@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import ErrorPage from './pages/ErrorPage';
 
 import * as routes from './constants/routes';
+import PageNotFound from './pages/PageNotFound';
 
 export default function Routing() {
   return (
@@ -13,6 +14,7 @@ export default function Routing() {
         element={<ErrorPage />}
         path={`${routes.ERROR_PAGE_ROUTE}/:errorCode?`}
       />
+      <Route element={<PageNotFound />} path={'*'} />
     </Routes>
   );
 }
