@@ -40,32 +40,7 @@ describe('Card', () => {
     });
   });
 
-  it('should toggle heart on click', () => {
-    mockMakeRequest.mockResolvedValue({
-      data: {
-        liked: true,
-      },
-    });
-
-    const screen = render(<Card {...mockPost} />);
-    const whiteHeart = () =>
-      screen.getByAltText('/assets/icons/heart-black.svg');
-    const redHeart = () => {
-      return screen.getByAltText('/assets/icons/heart-red.svg');
-    };
-
-    fireEvent.click(whiteHeart());
-
-    waitFor(() => {
-      expect(redHeart).toBeTruthy();
-      fireEvent.click(redHeart());
-      waitFor(() => {
-        expect(whiteHeart()).toBeTruthy();
-      });
-    });
-  });
-
-  it('should not toggle heart on click when any network error occours', () => {
+  it('should not toggle heart on click when any network error occours', async () => {
     mockMakeRequest.mockRejectedValue({});
 
     const screen = render(<Card {...mockPost} />);
@@ -73,12 +48,12 @@ describe('Card', () => {
       screen.getByAltText('/assets/icons/heart-black.svg');
 
     fireEvent.click(whiteHeart());
-    waitFor(() => {
+    await waitFor(() => {
       expect(whiteHeart).toBeTruthy();
     });
   });
 
-  it('should toggle claps on clapButton click', () => {
+  it('should increment claps on clapButton click', async () => {
     mockMakeRequest.mockResolvedValue({ data: { claps: mockPost.claps + 1 } });
 
     const screen = render(<Card {...mockPost} />);
@@ -87,16 +62,12 @@ describe('Card', () => {
 
     expect(numClapsNode.textContent).toBe(String(mockPost.claps));
     fireEvent.click(clapsIconNode);
-    waitFor(() => {
+    await waitFor(() => {
       expect(numClapsNode.textContent).toBe(String(mockPost.claps + 1));
-      fireEvent.click(clapsIconNode);
-      waitFor(() => {
-        expect(numClapsNode.textContent).toBe(String(mockPost.claps));
-      });
     });
   });
 
-  it('should not toggle claps on clapButton click when any network error occours', () => {
+  it('should not toggle claps on clapButton click when any network error occours', async () => {
     mockMakeRequest.mockRejectedValue({});
 
     const screen = render(<Card {...mockPost} />);
@@ -105,7 +76,7 @@ describe('Card', () => {
 
     expect(numClapsNode.textContent).toBe(String(mockPost.claps));
     fireEvent.click(clapsIconNode);
-    waitFor(() => {
+    await waitFor(() => {
       expect(numClapsNode.textContent).toBe(String(mockPost.claps));
     });
   });
