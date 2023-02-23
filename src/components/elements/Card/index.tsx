@@ -71,7 +71,7 @@ export default function Card({
                   },
                 });
               } catch (e) {
-                // show some snacbar or anything else
+                // TODO: show some snacbar or anything else
                 newChangeClap = changeClap;
               }
 
@@ -93,7 +93,7 @@ export default function Card({
                 });
                 setIsLiked(response.data.liked);
               } catch (e) {
-                // show snackbar
+                // TODO: show snackbar
               }
             }}
           />

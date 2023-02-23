@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Card from '../../components/elements/Card';
@@ -6,13 +6,13 @@ import { GET_ALL_BLOGS } from '../../constants/apiEndpoints/blog';
 
 import { makeRequest } from '../../utils/makeRequest';
 
-import { Post } from '../../types/post';
-
 import './HomePage.css';
+import { PostsContext } from '../../contexts/blogContext';
 
 export default function HomePage() {
-  const [posts, setPosts] = React.useState<Post[] | undefined>(undefined);
   const navigate = useNavigate();
+  // actually no need of it !!
+  const { posts, setPosts } = useContext(PostsContext);
 
   useEffect(() => {
     makeRequest(GET_ALL_BLOGS, {}, navigate).then((data) => {
