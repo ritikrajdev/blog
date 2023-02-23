@@ -61,14 +61,19 @@ export default function Card({
           <IconButton
             iconPath='/assets/icons/clapping.svg'
             onClick={async () => {
-              const newChangeClap = !changeClap;
+              let newChangeClap = !changeClap;
               const newNumClaps = claps + (newChangeClap ? 1 : 0);
 
-              makeRequest(PUT_BLOG(id), {
-                data: {
-                  claps: newNumClaps,
-                },
-              });
+              try {
+                await makeRequest(PUT_BLOG(id), {
+                  data: {
+                    claps: newNumClaps,
+                  },
+                });
+              } catch (e) {
+                // show some snacbar or anything else
+                newChangeClap = changeClap;
+              }
 
               setChangeClaps(newChangeClap);
             }}
@@ -80,12 +85,16 @@ export default function Card({
           <IconButton
             iconPath={heartSrc}
             onClick={async () => {
-              const response = await makeRequest(PUT_BLOG(id), {
-                data: {
-                  liked: !isLiked,
-                },
-              });
-              setIsLiked(response.data.liked);
+              try {
+                const response = await makeRequest(PUT_BLOG(id), {
+                  data: {
+                    liked: !isLiked,
+                  },
+                });
+                setIsLiked(response.data.liked);
+              } catch (e) {
+                // show snackbar
+              }
             }}
           />
         </div>
