@@ -27,6 +27,7 @@ export async function makeRequest(
           : ERROR_PAGE_ROUTE,
       );
     } else {
+      // TODO: copy this error to my own custom error
       throw err;
     }
   }
