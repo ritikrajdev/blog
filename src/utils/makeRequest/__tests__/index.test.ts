@@ -53,8 +53,8 @@ describe('makeRequest', () => {
     expect(mockNavigate).toBeCalledWith(ERROR_WITH_STATUS_PAGE_ROUTE(500));
   });
 
-  it('should throw axios error when navigate is not supplied and any error occours in request', async () => {
-    mockedAxios.mockRejectedValue(new AxiosError());
-    expect(makeRequest(GET_ALL_BLOGS)).rejects.toThrow(AxiosError);
+  it('should reject when navigate is not supplied and any error occours in request', async () => {
+    mockedAxios.mockRejectedValue(new Error('error'));
+    expect(makeRequest(GET_ALL_BLOGS)).rejects.toThrow('error');
   });
 });

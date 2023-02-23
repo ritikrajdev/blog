@@ -4,9 +4,15 @@ import { render, waitFor } from '@testing-library/react';
 import HomePage from '..';
 import { makeRequest } from '../../../utils/makeRequest';
 import { mockedBlogData } from '../../../constants/mockedData';
+import { useNavigate } from 'react-router-dom';
 
+jest.mock('react-router-dom');
 jest.mock('../../../utils/makeRequest');
+
+const mockUseNavigate = useNavigate as jest.MockedFunction<typeof useNavigate>;
 const mockMakeRequest = makeRequest as jest.MockedFunction<typeof makeRequest>;
+
+mockUseNavigate.mockReturnValue(jest.fn());
 
 describe('HomePage', () => {
   afterEach(() => {

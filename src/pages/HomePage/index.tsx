@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Card from '../../components/elements/Card';
 import { GET_ALL_BLOGS } from '../../constants/apiEndpoints/blog';
 
@@ -10,9 +12,10 @@ import './HomePage.css';
 
 export default function HomePage() {
   const [posts, setPosts] = React.useState<Post[] | undefined>(undefined);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    makeRequest(GET_ALL_BLOGS).then((data) => {
+    makeRequest(GET_ALL_BLOGS, {}, navigate).then((data) => {
       setPosts(data);
     });
   }, []);
